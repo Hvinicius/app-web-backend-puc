@@ -21,20 +21,37 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Veiculos" asp-action="Index">Veículos</a>
-                        </li>
-                        <li>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Consumos" asp-action="Index">Consumos</a>
-                        </li>
-                        <li>
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuários</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Veiculos" asp-action="Index">Veículos</a>
+                            </li>
+                            <li>
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Consumos" asp-action="Index">Consumos</a>
+                            </li>
+
+                            @if (User.IsInRole("Admin"))
+                            {
+                                <li>
+                                    <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Index">Usuários</a>
+                                </li>
+                            }
+                        }
                     </ul>
                     <ul Class="navbar-nav">
-                        <li Class="nav-item">
+
+                        @if (User.Identity.IsAuthenticated)
+                        {
+                           <li Class="nav-item">
+                            Olá, @User.Identity.Name <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Logout">Logout</a>
+                        </li>    
+                        }
+                        else
+                        {
+                             <li Class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Usuarios" asp-action="Login">Login</a>
-                        </li>
+                        </li>                           
+                        }                       
 
                     </ul>
                 </div>
